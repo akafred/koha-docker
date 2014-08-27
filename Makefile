@@ -18,9 +18,3 @@ clean:
 
 sublime:
 	vagrant ssh -c 'subl "/vagrant" > subl.log 2> subl.err < /dev/null' &
-
-geany:
-	vagrant ssh -c 'geany > geany.log 2> geany.err < /dev/null' &
-
-firefox:
-	vagrant ssh -c 'firefox > firefox.log 2> firefox.err < /dev/null' &
