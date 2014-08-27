@@ -1,0 +1,5 @@
+base:
+  '*':
+    - python
+    - sublime
+    - dev
