@@ -37,6 +37,10 @@ See [Makefile](Makefile) for more commands.
 
 * Sublime: `make sublime`
 
+### Convenice command to use docker
+
+* `./docker <command>` e.g `./docker ps`
+
 ###
 
 Credits 
