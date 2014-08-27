@@ -2,5 +2,6 @@ base:
   '*':
     - python
     - sublime
-    - dev
+    - geany-projects
     - docker
+
