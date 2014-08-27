@@ -27,8 +27,8 @@ and [SaltStack](http://docs.saltstack.com/) for automated provisioning.
             * git-completion
         * After installing Cygwin/X Windows users should use the program "XWin Server" for commands like git, make etc. 
 2. Clone this repo from the command line (in a directory of your choice): 
-   ```git clone https://github.com/akafred/devbox.git``` 
-3. `cd devbox` into your cloned repo.
+   ```git clone https://github.com/akafred/dockerplay.git``` 
+3. `cd dockerplay` into your cloned repo.
 4. From the command line run: `make` to bootstrap the environment.
 
 See [Makefile](Makefile) for more commands.
