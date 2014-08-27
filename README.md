@@ -1,5 +1,7 @@
-A virtual machine for the beginning programmer
+A virtual machine for playing with docker.io
 ===
+
+Forked from http://github.com/akafred/devbox
 
 This setup uses [Vagrant](http://www.vagrantup.com/) for local virtualisation 
 and [SaltStack](http://docs.saltstack.com/) for automated provisioning.
@@ -41,5 +43,3 @@ Credits
 
 - Approach inspired by work done at Oslo Public Library (http://github.com/digibib)
 - Tools inspired by the book "Programming for Beginners" by Kevin Partner.
-
-
