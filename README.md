@@ -41,9 +41,7 @@ See [Makefile](Makefile) for more commands.
 
 * `./docker <command>` e.g `./docker ps`
 
-###
-
-Credits 
+### Credits 
 
 - Approach inspired by work done at Oslo Public Library (http://github.com/digibib)
-- Tools inspired by the book "Programming for Beginners" by Kevin Partner.
+
