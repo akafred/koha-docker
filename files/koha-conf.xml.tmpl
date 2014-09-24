@@ -17,9 +17,9 @@
 <!--
 <listen id="mergeserver">tcp:@:__MERGE_SERVER_PORT__</listen>
 <server id="mergeserver"  listenref="mergeserver">
-    <directory>/var/lib/koha/{{ pillar['koha']['instance'] }}/biblios</directory>
-    <config>/etc/koha/sites/{{ pillar['koha']['instance'] }}/zebra-biblios-dom.cfg</config>
-    <cql2rpn>/var/lib/koha/{{ pillar['koha']['instance'] }}/pqf.properties</cql2rpn>
+    <directory>/var/lib/koha/{{ ServerName }}/biblios</directory>
+    <config>/etc/koha/sites/{{ ServerName }}/zebra-biblios-dom.cfg</config>
+    <cql2rpn>/var/lib/koha/{{ ServerName }}/pqf.properties</cql2rpn>
 </server>
 -->
 
@@ -101,8 +101,8 @@
 </server>
 <serverinfo id="biblioserver">
         <ccl2rpn>/etc/koha/zebradb/ccl.properties</ccl2rpn>
-        <user>{{ pillar['koha']['zebrauser'] }}</user>
-        <password>{{ pillar['koha']['zebrapass'] }}</password>
+        <user>{{ ZebraUser }}</user>
+        <password>{{ ZebraPass }}</password>
 </serverinfo>
 
 <!-- AUTHORITY RECORDS -->
@@ -176,16 +176,16 @@
 </server>
 <serverinfo id="authorityserver">
     <ccl2rpn>/etc/koha/zebradb/ccl.properties</ccl2rpn>
-    <user>{{ pillar['koha']['zebrauser'] }}</user>
-    <password>{{ pillar['koha']['zebrapass'] }}</password>
+    <user>{{ ZebraUser }}</user>
+    <password>{{ ZebraPass }}</password>
 </serverinfo>
 
 <!-- PUBLICSERVER'S BIBLIOGRAPHIC RECORDS -->
 <!-- This can be used to set up a public Z39.50/SRU server.
 
 <server id="publicserver"  listenref="publicserver">
-    <directory>/var/lib/koha/{{ pillar['koha']['instance'] }}/biblios</directory>
-    <config>/etc/koha/sites/{{ pillar['koha']['instance'] }}/zebra-biblios-dom.cfg</config>
+    <directory>/var/lib/koha/{{ ServerName }}/biblios</directory>
+    <config>/etc/koha/sites/{{ ServerName }}/zebra-biblios-dom.cfg</config>
     <cql2rpn>/etc/koha/zebradb/pqf.properties</cql2rpn>
     <xi:include href="/etc/koha/normarc-retrieval-info-bib-dom.xml"
   xmlns:xi="http://www.w3.org/2001/XInclude">

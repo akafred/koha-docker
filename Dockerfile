@@ -27,6 +27,10 @@ RUN apt-get -y install \
 	libnet-ssleay-perl   \
 	libcrypt-ssleay-perl
 
+# - mysql.server
+
+RUN apt-get install -y mysql-server
+
 # - koha.apache2
 
 RUN apt-get -y install apache2 && \
@@ -44,14 +48,6 @@ RUN apt-get -y install apache2 && \
 RUN echo "Listen 8080" >> /etc/apache2/ports.conf && \
     echo "Listen 8081" >> /etc/apache2/ports.conf
 
-ENV KOHA_INSTANCE name
-
-ADD files/apache.tmpl /etc/apache2/sites-available/koha_${KOHA_INSTANCE}.conf
-
-RUN sed -e 's/{{ OpacPort }}/8080/g' -i /etc/apache2/sites-available/koha_${KOHA_INSTANCE}.conf && \
-    sed -e "s/{{ IntraPort }}/8081/g" -i /etc/apache2/sites-available/koha_${KOHA_INSTANCE}.conf && \
-    sed -e "s/{{ ServerName }}/$KOHA_INSTANCE/g" -i /etc/apache2/sites-available/koha_${KOHA_INSTANCE}.conf 
-
 # - koha.common
 
 RUN echo "deb http://debian.koha-community.org/koha squeeze main" > /etc/apt/sources.list.d/koha.list && \
@@ -59,6 +55,14 @@ RUN echo "deb http://debian.koha-community.org/koha squeeze main" > /etc/apt/sou
     apt-get -y update && \
     apt-get -y install koha-common=3.16.03 && \
     /etc/init.d/koha-common stop
+
+ENV KOHA_INSTANCE name
+
+ADD files/apache.tmpl /etc/apache2/sites-available/${KOHA_INSTANCE}.conf
+
+RUN sed 's/{{ OpacPort }}/8080/g' -i /etc/apache2/sites-available/${KOHA_INSTANCE}.conf 
+RUN sed -e 's/{{ IntraPort }}/8081/g' -i /etc/apache2/sites-available/${KOHA_INSTANCE}.conf  
+RUN sed -e "s/{{ ServerName }}/$KOHA_INSTANCE/g" -i /etc/apache2/sites-available/${KOHA_INSTANCE}.conf 
 
 # - koha.restful
 
@@ -73,17 +77,13 @@ RUN apt-get install -y libcgi-application-dispatch-perl && \
 # - mysql.client
 # omitted
 
-# - mysql.server
-
-RUN apt-get install -y mysql-server
-
 # - koha.sites-config
 
 ADD files/koha-sites.conf /etc/koha/koha-sites.conf
 
-RUN sed -e 's/{{ OpacPort }}/8080/g' -i /etc/apache2/sites-available/koha_${KOHA_INSTANCE}.conf && \
-    sed -e "s/{{ IntraPort }}/8081/g" -i /etc/apache2/sites-available/koha_${KOHA_INSTANCE}.conf && \
-    sed -e "s/{{ ServerName }}/$KOHA_INSTANCE/g" -i /etc/koha/koha-sites.conf
+RUN sed -e 's/{{ OpacPort }}/8080/g' -i /etc/koha/koha-sites.conf
+RUN sed -e 's/{{ IntraPort }}/8081/g' -i /etc/koha/koha-sites.conf
+RUN sed -e "s/{{ ServerName }}/$KOHA_INSTANCE/g" -i /etc/koha/koha-sites.conf
 
 RUN echo "${KOHA_INSTANCE}:admin:secret" > /etc/koha/passwd
 
@@ -102,16 +102,18 @@ ENV DB_HOST 127.0.0.1
 
 RUN printf "[client]\nhost     = ${DB_HOST}" > /etc/mysql/koha-common.cnf
 
-ADD files/koha-conf.xml.tmpl /etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml
-
-RUN sed -e "s/{{ ServerName }}/$KOHA_INSTANCE/g" -i /etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml && \
-    sed -e "s/{{ HostName }}/${DB_HOST}/g" -i /etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml
-
+RUN echo "kohauser:XXX" > /etc/koha/sites/$KOHA_INSTANCE/zebra.passwd
 # Skipped:
 #    - group: {{ pillar['koha']['instance'] }}-koha
 #    - user: {{ pillar['koha']['instance'] }}-koha
 
-RUN echo "kohauser:XXX" > /etc/koha/sites/$KOHA_INSTANCE/zebra.passwd
+ADD files/koha-conf.xml.tmpl /etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml
+
+RUN sed -e 's/{{ ZebraUser }}/kohauser/g' -i /etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml && \
+    sed -e 's/{{ ZebraPass }}/XXX/g' -i /etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml && \
+    sed -e "s/{{ ServerName }}/$KOHA_INSTANCE/g" -i /etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml && \
+    sed -e "s/{{ HostName }}/${DB_HOST}/g" -i /etc/koha/sites/${KOHA_INSTANCE}/koha-conf.xml
+
 # Skipped:
 #    - group: {{ pillar['koha']['instance'] }}-koha
 #    - user: {{ pillar['koha']['instance'] }}-koha
