@@ -1,14 +1,12 @@
-A virtual machine for playing with docker.io
+Koha in Docker
 ===
-
-Forked from http://github.com/akafred/devbox
 
 This setup uses [Vagrant](http://www.vagrantup.com/) for local virtualisation 
 and [SaltStack](http://docs.saltstack.com/) for automated provisioning.
 
 ## Usage
 
-1. Install virtualbox and vagrant (and X11-server on OSX/Windows):
+1. Install virtualbox and vagrant:
     - Ubuntu: 
         * `sudo apt-get install virtualbox`
         * vagrant > 1.5 - install deb manually: https://www.vagrantup.com/downloads.html
@@ -27,15 +25,11 @@ and [SaltStack](http://docs.saltstack.com/) for automated provisioning.
             * git-completion
         * After installing Cygwin/X Windows users should use the program "XWin Server" for commands like git, make etc. 
 2. Clone this repo from the command line (in a directory of your choice): 
-   ```git clone https://github.com/akafred/dockerplay.git``` 
-3. `cd dockerplay` into your cloned repo.
+   ```git clone https://github.com/digibib/koha-docker.git``` 
+3. `cd koha-docker` into your cloned repo.
 4. From the command line run: `make` to bootstrap the environment.
 
 See [Makefile](Makefile) for more commands.
-
-### Running development tools from inside the ls.test virtual machine
-
-* Sublime: `make sublime`
 
 ### Convenice command to use docker
 
@@ -43,5 +37,4 @@ See [Makefile](Makefile) for more commands.
 
 ### Credits 
 
-- Approach inspired by work done at Oslo Public Library (http://github.com/digibib)
-
+-- Initially forked from from http://github.com/akafred/dockerplay

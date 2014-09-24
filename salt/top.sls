@@ -1,5 +1,4 @@
 base:
   '*':
-    - sublime
     - docker
-
+    - nsenter
