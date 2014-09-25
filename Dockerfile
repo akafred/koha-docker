@@ -129,4 +129,8 @@ RUN sed -e 's/{{ ZebraUser }}/kohauser/g' -i /etc/koha/sites/${KOHA_INSTANCE}/ko
 # RUN mv /var/lib/mysql /var/lib/mysqlDefault && ln -s /koha-data/mysql-data /var/lib/mysql
 # 
 
+EXPOSE 8080
+EXPOSE 8081
+EXPOSE 80
+
 CMD /etc/init.d/mysql start && /etc/init.d/koha-common start && /usr/sbin/apache2ctl -D FOREGROUND

@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
-    
+
   # http://fgrehm.viewdocs.io/vagrant-cachier
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
